@@ -40,8 +40,11 @@ categories: [sound-ai]
 Sample rate와 관련 된 법칙으로 Nyquist law가 있다. 모든 신호가 그 신호에 포함된 최고 주파수의 2배에 해당하는 빈도를 가지고 일정한 간격으로 샘플링하면 원래의 신호를 완벽하게 기록할 수 있다는 법칙이다. 
 사람의 가청 주파수(20Hz ~ 20KHz)의 최고 주파수인 20KHz의 2배인 40KHz에 오차 허용 범위 10% 및 영상 업계 표준과의 동기화 문제 등으로 인해 대부분의 오디오 sample rate는 44100Hz 값을 갖게 된다.
 
-샘플링 레이트가 최대 frequency의 2배 보다 커져야 한다는 것이다. $$ f_{s}>2f_{m}\, 여기서 \,f_{s} 는\, sampling \,rate \,,\,f_{m} 은\, maximum\, frequency를 말한다.$$
-$$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다.$$
+샘플링 레이트가 최대 frequency의 2배 보다 커져야 한다는 것이다.
+
+$f_{s} > 2f_{m}\, 여기서 \,f_{s} 는\, sampling \,rate \,,\,f_{m} 은\, maximum\, frequency를 말한다.$  
+
+$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다.$
 
 일반적으로 Sampling은 인간의 청각 영역에 맞게 형성 된다.
 - Audio CD : 44.1 kHz(44100 sample/second)  
