@@ -166,7 +166,7 @@ $$
 
 한가지 의문점이 듭니다. 바로, 우리가 sampling으로 들어온 데이터는 바로 시간의 간격에 따른 소리의 amplitude의 discrete한 데이터이기 때문이다. 그렇다면 위 푸리에 변환 식을 Discrete한 영역으로 생각해봅시다.
 
-만약에 우리가 수집한 데이터 $y_{n}$에서, 이산 시계열 데이터가 주기 $N$으로 반복한다고 할때, DFT는 주파수와 진폭이 다른 $N$개의 사인 함수의 합으로 표현이 가능합니다.
+만약에 우리가 수집한 데이터 $$ y_{n} $$에서, 이산 시계열 데이터가 주기 $$ N $$으로 반복한다고 할때, DFT는 주파수와 진폭이 다른 $N$개의 사인 함수의 합으로 표현이 가능합니다.
 $$
 y_n = \frac{1}{N} \sum_{k=0}^{N-1} Y_k \cdot \exp \left( i\cdot 2\pi\frac{k}{N} n \right)
 $$
@@ -177,10 +177,10 @@ $$
 Y_k = \sum_{n=0}^{N-1} y_n\cdot \exp \left( -i\cdot 2\pi\frac{k}{N} n \right)
 $$
 
-- $y_{n}$ : input signal
-- $n$ : Discrete time index
-- $k$ : discrete frequency index
-- $Y_{k}$ : k번째 frequeny에 대한 Spectrum의 값
+- $$ y_{n} $$ : input signal
+- $$ n $$ : Discrete time index
+- $$ k $$ : discrete frequency index
+- $$ Y_{k} $$ : k번째 frequeny에 대한 Spectrum의 값
 
 
 ## Fourier Transform의 Orthogonal
