@@ -1,20 +1,20 @@
-title: JainRecipes
-description: Compilation of family recipes
+title: YOUNG-JIN NA
+description: Record what I study
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "jainrecipes.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "devyoungjin.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Author
 author-name:    Rahul & Rishabh Jain
-author-image:   1.jpg
-author-job:
-author-email:   # Add your email for contant form.
+author-image:   profile.jpg
+author-job: Junior Developer
+author-email: devyjna@gmail.com   # Add your email for contant form.
 author-twitter: # Add your twitter account
-about-author:
+about-author:  I am a Junior developer focusing on AI, especially ComputerVision and Speech recognition. 
 
 # Social settings
 social-twitter:
 social-facebook:
-social-github:    JainRecipes
+social-github:    devyoungjin
 social-pinterest:
 social-instagram:
 social-youtube:

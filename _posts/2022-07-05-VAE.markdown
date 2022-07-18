@@ -1,0 +1,57 @@
+---
+layout: post
+title: VAE
+image: 4.jpg #code1.jpg 
+date: 2022-07-05 00:00:18 +0200
+tags: [ai, vae]
+categories: [ai, vae]
+---
+
+# AUTOENCODER
+Auto Encoder란 입력 데이터를 압축시켜 압축시킨 데이터로 축소한 후, 다시 확장하여 결과 데이터를 입력 데이터와 동일하도록 만드는 일종의 딥 뉴럴 네트워크 모델이다.
+Auto Encoder는 입력 데이터를 일종의 Label로 삼아 학습하므로 Self-supervised Learning 이라고 부르기도 하지만, y값이 존재하지 않으며 이용하지 않는다는 점에서 Unsupervised Learning으로도 분류된다. 데이터를 압축시킴으로써 얻는 내재된(Latent) 정보를 얻기 위한 모델이다.
+
+<img src="/assets/images/VAE/vae1.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+위 그림은 손글씨 이미지 데이터인 숫자 1을 Auto Encoder 모델에 넣은 후 결과값으로 입력 데이터와 비슷한 손글씨 숫자 이미지 1을 출력하는 그림이다. 
+Auto Encoder에서 압축시키는 부분은 Encoder 라고 하며 확장시키는 부분은 Decoder라고 부른다. 
+참고로 Encoder 또는 Decoder 둘 중 하나의 파라미터를 고정시키고 나머지 부분만 학습시키는 경우도 있다. 둘 중 한 부분만을 이용하되 전체적인 Encoder - Decoder 구조는 유지해야 한다.
+
+## Demension Reduction
+Auto Encoder의 Encoder 부분은 입력 데이터를 압축하는 과정에서 데이터의 차원을 축소시킨다. 
+차원의 축소 관점에서 Encoder 부분은 주성분 분석인 PCA(Principal Component Analysis)와 유사한 점이 있다.
+차원의 축소는 결국 특징을 뽑아낸다는 것을 의미하는데, 다음 그림을 살펴보자. 참고로 PCA에 대해 모른다면 여기를 참고하자.
+
+<img src="/assets/images/VAE/vae2.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+기본적으로 PCA는 선형적으로 데이터 차원을 감소시켜 준다. 위 그림에서 보는 것처럼 빨간색 실선이 PCA를 뜻한다. 데이터가 주어졌을 때 위와 같이 선형적으로 데이터의 차원을 축소시키게 된다. 
+반면에 초록색 실선인 Auto Encoder의 Encoder는 비선형적으로 데이터의 차원을 줄여줄 수 있다. 
+참고로 PCA는 Kernel PCA를 활용해 비선형적으로 데이터를 축소할 수 있긴 하지만 보통 선형적으로 데이터 차원을 축소하고 비선형적으로 데이터를 축소하기 위해서는 Auto Encoder를 사용한다.
+ 
+## Structure
+ <img src="/assets/images/VAE/vae3.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+Encoder와 Decoder 부분이 대칭적인 구조를 보인다.
+Input layer의 입력 데이터를 압축시켜서 대표적인 특성을 추출하는 부분은 Encoded Layer에 있는 노드들이다. 다른 말로는 Codings라고 부르기도 한다.
+이 층이 압축된 데이터를 갖고 있는 Layer이며 이 부분이 결과 데이터가 입력 데이터와 얼마나 동일하게 출력할 것인가를 결정하는 역할이라고 볼 수 있다.
+따라서 하이퍼파라미터로서 Encoded Layer의 노드 개수 설정이 매우 중요하다. 만약 출력 데이터가 입력 데이터와 동일하지 않게 출력된다면 Encoded Layer의 노드 개수가 적은 것이 원인일 가능성이 크다.
+
+ <img src="/assets/images/VAE/vae4.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+
+### PROBLEMS WITH Vanilla Auto Encoder FOR GENERATION 
+
+1. THE PLOT ISN`T SYMMETRICAL AROUND THE ORIGIN
+플롯이 원점을 중심으로 균형적이지 않음  => 생성을 위한 포인트 샘플링을 어떻게 해야 할까?
+
+2. SOME LABELS ARE REPRESENTED OVER SMALL AREAS, OTHERS OVER LARGE SCALE ONES  
+일부 레이블은 작은 영역에 표시되며 다른 레이블은 대규모 영역에 표시됨 => 다양성 부족
+
+3. THERE ARE GAPS BETWEEN COLOURED POINTS
+색칠된 지점 사이에 간격이 있음 => 일부 생성된 이미지가 좋지 않음
+
+
+## VARIATIONAL AUTOENCODERS
+
+1. VAE는 확률적 오토인코더(probabilistic autoencoder)다. 즉, 학습이 끝난 후에도 출력이 부분적으로 우연에 의해 결정된다.
+2. VAE는 생성 오토인코더(generatie autoencoder)이며, 학습 데이터셋에서 샘플링된 것과 같은 새로운 샘플을 생성할 수 있다.
