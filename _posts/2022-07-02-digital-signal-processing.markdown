@@ -4,7 +4,7 @@ title: "Digital signal processing"
 image: speech1.jpg #12.jpg
 date: 2022-07-02 19:59:18 -0500
 tags: [ai, sound-ai]
-categories: [ai, sound-ai]
+categories: [sound-ai]
 ---
 # Digital Signal Processing
 ### Audio 에서 우리가 얻을수 있는 정보는 크게 3가지이다.

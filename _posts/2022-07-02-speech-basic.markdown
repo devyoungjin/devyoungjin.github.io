@@ -4,7 +4,7 @@ title: "Speech Basic"
 image: speech1.jpg #12.jpg
 date: 2022-07-02 12:00:18 +0200
 tags: [ai, sound-ai]
-categories: [ai, sound-ai]
+categories: [sound-ai]
 ---
 
 ### RNN(Recurrent Neural Network)
