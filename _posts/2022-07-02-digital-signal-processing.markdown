@@ -42,9 +42,9 @@ Sample rate와 관련 된 법칙으로 Nyquist law가 있다. 모든 신호가 �
 
 샘플링 레이트가 최대 frequency의 2배 보다 커져야 한다는 것이다.
 
-$$ f_{s} > 2f_{m}\, 여기서 \,f_{s} 는\, sampling \,rate \,,\,f_{m} 은\, maximum\, frequency를 말한다.$$  
+$$ f_{s} > 2f_{m}\, 여기서 \,f_{s} 는\, sampling \,rate \,,\,f_{m} 은\, maximum\, frequency를 말한다. $$  
 
-$$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다.$$
+$$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다. $$
 
 일반적으로 Sampling은 인간의 청각 영역에 맞게 형성 된다.
 - Audio CD : 44.1 kHz(44100 sample/second)  
@@ -52,17 +52,17 @@ $$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다.$$
 
 *샘플링주기 구하기  
 ex)1초당 10000번 표본 추출  
-T = $\frac1{10,000}$ =0.1ms
+T = $ \frac1{10,000}$ =0.1ms $
 
 *frame 구하기  
-$d_f = \frac1{s_r} · {K}$  
-ex) ${s_r}=44100, K=512$ 일 경우 11.6ms 
+$$ d_f = \frac1{s_r} · {K} $$  
+ex) $${s_r}$$ =44100, K=512 일 경우 11.6ms 
 
 ##  Quantization(양자화)  
 표본화에서 얻어진 수치를 대표 값으로 n개의 레벨(discreate value)로 분해하고, 샘플 값을 근사 시키는 과정이다. 시간의 기준이 아닌 실제 amplitude의 real valued 를 기준으로 시그널의 값을 조절한다. Amplitude를 이산적인 구간으로 나누고, signal 데이터의 Amplitude를 반올림한다.
 이산적인 구간은 bit의 비트에 의해서 결정된다.     
-B \,bit의 Quantization : $ -{2^{B-1}} $ ~ $ {2^{B-1}-1} $  
-Audio CD의 Quantization (16 bits) : $-2^{15}$ ~ $2^{15}-1$  
+B \,bit의 Quantization : $$ -{2^{B-1}} $$ ~ $$ {2^{B-1}-1} $$  
+Audio CD의 Quantization (16 bits) : $$ -2^{15} $$ ~ $2^{15}-1 $$  
 위 값들은 보통 -1.0 ~ 1.0  영역으로 scaling 되기도 한다.
 즉, 비트로 표현 할 수 있게 애매한 값들을 비트로 표현 할 수 있는 값으로 근사 시키는 것이다. 
 이러한 양자화 과정에서 샘플링 신호를 통해 반올림하거나 끝수를 버림으로써 근사치를 구하는데, 이 때, AD converter의 bit 수가 높으면 샘플링 된 신호의 버리는 수들이 적어져 본래 신호를 더 잘 살릴 수 있다.
@@ -91,7 +91,7 @@ windowing시 발생할 수 있는 문제가 있다. 0으로 수렴시키는 구�
 - Sensitive to outliers
 - Onset detection, music genre classification
 
-$$ AE_t = {(t+1)·K-1} \quad  {max} \quad  k=t·K s(k)$$
+$$ AE_t = {(t+1)·K-1} \quad  {max} \quad  k=t·K s(k) $$
 
 ## RMSE(Root-mean-square-energy)  
 제곱평균제곱근 혹은 이차평균(quadratic mean)은 변화하는 값의 크기에 대한 통계적 척도이다. 이것은 특히 사인함수처럼 변수들이 음과 양을 오고 갈 때에 유용하다. Energy는 waveform이 가지고 있는 에너지 값을 의미한다. 즉 signal의 전체 amplitutde에 대응되는 값이다. RMSE는 나중에 MFCC feature중 하나로 사용된다.  
@@ -100,8 +100,7 @@ $$ AE_t = {(t+1)·K-1} \quad  {max} \quad  k=t·K s(k)$$
 - Less sensitive to outliers than AE
 - Audio segmentation, music genre classification
 
-$$ RMS_t = \sqrt{\frac{1}{K}· \displaystyle\sum_{k=t·K}^{(t+1)·K-1} s(k)^2} $$ 
-$$ =  RMS_t = \sqrt {Mean\,of\,sum\,of\,energy} $$
+$$ RMS_t = \sqrt{\frac{1}{K}· \displaystyle\sum_{k=t·K}^{(t+1)·K-1} s(k)^2} = \sqrt {Mean\,of\,sum\,of\,energy} $$
 
 <img src="/assets/images/Speech/AE+RMSE.jpg" width="90%" height="90%" title="AE+RMSE" alt="img"/> 
 
