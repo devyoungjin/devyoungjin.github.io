@@ -103,7 +103,7 @@ $$
 - Less sensitive to outliers than AE
 - Audio segmentation, music genre classification
 
-$$ RMS_t = \sqrt{\frac{1}{K}· \displaystyle\sum_{k=t·K}^{(t+1)·K-1} s(k)^2}$$ = $s$\sqrt {Mean\,of\,sum\,of\,energy} $$
+$$ RMS_t = \sqrt{\frac{1}{K}· \displaystyle\sum_{k=t·K}^{(t+1)·K-1} s(k)^2}$$ = $$\sqrt {Mean\,of\,sum\,of\,energy} $$
 
 <img src="/assets/images/Speech/AE+RMSE.jpg" width="90%" height="90%" title="AE+RMSE" alt="img"/> 
 
@@ -114,9 +114,7 @@ $$ RMS_t = \sqrt{\frac{1}{K}· \displaystyle\sum_{k=t·K}^{(t+1)·K-1} s(k)^2}$$
 - Monophonic pitch estimation
 - Voice/unvioced decision for speech signals
 
-$$ 
-ZCR_t = \frac{1}{2}  \displaystyle\sum_{k=t·K}^{(t+1)·K-1}{|(sgn(s(k))-sgn(s(k+1))|}
-$$
+$$ ZCR_t = \frac{1}{2} \displaystyle\sum_{k=t·K}^{(t+1)·K-1}{|(sgn(s(k))-sgn(s(k+1))|} $$
 
 식을 보면 가장 먼저 현재 sample의 신호값과 바로 그 앞 sample의 신호값을 곱했을 때 이 값이 음인지 판단한다.부호가 바뀌었다면 그 결과는 음의 값이다. 그렇다면 |  | 안에 있는 식은 true가 되어 1을 반환하고,신호값을 곱한 결과가 0보다 크거나 같게 된다면 0을 반환한다.
 신호의 길이만큼 그 연산을 하여 더하기를 하면 결과적으로 0을 교차한 횟수를 구할 수 있을 것이고, 신호의 길이만큼 교차횟수를 나누면 이는 신호가 영을 교차하는 비율이 된다.
@@ -131,9 +129,7 @@ $$
 
 퓨리에 변환의 식을 살펴봅시다.
 
-$$
-y(t)=\sum_{k=-\infty}^\infty A_k \, \exp \left( i\cdot 2\pi\frac{k}{T} t \right)
-$$
+$$ y(t)=\sum_{k=-\infty}^\infty A_k \, \exp \left( i\cdot 2\pi\frac{k}{T} t \right) $$
 
 이 식을 하나식 해석해봅시다. $$k$$는 $$-\infty ~ \infty$$의 범위를 가지고 움직입니다. 이것은 주기함수들의 갯수입니다. 어떠한 신호가 다른 주기함수들의 합으로 표현되는데, 그 주기함수는 무한대의 범위에 있군요.
 
