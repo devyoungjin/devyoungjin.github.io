@@ -92,9 +92,9 @@ windowing시 발생할 수 있는 문제가 있다. 0으로 수렴시키는 구�
 - Sensitive to outliers
 - Onset detection, music genre classification
 
-$$
+$
 AE_t = {(t+1)·K-1} \quad {max} \quad k=t·K s(k)
-$$
+$
 
 ## RMSE(Root-mean-square-energy)  
 제곱평균제곱근 혹은 이차평균(quadratic mean)은 변화하는 값의 크기에 대한 통계적 척도이다. 이것은 특히 사인함수처럼 변수들이 음과 양을 오고 갈 때에 유용하다. Energy는 waveform이 가지고 있는 에너지 값을 의미한다. 즉 signal의 전체 amplitutde에 대응되는 값이다. RMSE는 나중에 MFCC feature중 하나로 사용된다.  
@@ -114,7 +114,7 @@ $$ RMS_t = \sqrt{\frac{1}{K}· \displaystyle\sum_{k=t·K}^{(t+1)·K-1} s(k)^2}$$
 - Monophonic pitch estimation
 - Voice/unvioced decision for speech signals
 
-$$ ZCR_t = \frac{1}{2} \displaystyle\sum_{k=t·K}^{(t+1)·K-1}{|(sgn(s(k))-sgn(s(k+1))|} $$
+$ ZCR_t = \frac{1}{2} \displaystyle\sum_{k=t·K}^{(t+1)·K-1}{|(sgn(s(k))-sgn(s(k+1))|} $
 
 식을 보면 가장 먼저 현재 sample의 신호값과 바로 그 앞 sample의 신호값을 곱했을 때 이 값이 음인지 판단한다.부호가 바뀌었다면 그 결과는 음의 값이다. 그렇다면 |  | 안에 있는 식은 true가 되어 1을 반환하고,신호값을 곱한 결과가 0보다 크거나 같게 된다면 0을 반환한다.
 신호의 길이만큼 그 연산을 하여 더하기를 하면 결과적으로 0을 교차한 횟수를 구할 수 있을 것이고, 신호의 길이만큼 교차횟수를 나누면 이는 신호가 영을 교차하는 비율이 된다.
@@ -129,7 +129,7 @@ $$ ZCR_t = \frac{1}{2} \displaystyle\sum_{k=t·K}^{(t+1)·K-1}{|(sgn(s(k))-sgn(s
 
 퓨리에 변환의 식을 살펴봅시다.
 
-$$ y(t)=\sum_{k=-\infty}^\infty A_k \, \exp \left( i\cdot 2\pi\frac{k}{T} t \right) $$
+$ y(t)=\sum_{k=-\infty}^\infty A_k \, \exp \left( i\cdot 2\pi\frac{k}{T} t \right) $
 
 이 식을 하나식 해석해봅시다. $$k$$는 $$-\infty ~ \infty$$의 범위를 가지고 움직입니다. 이것은 주기함수들의 갯수입니다. 어떠한 신호가 다른 주기함수들의 합으로 표현되는데, 그 주기함수는 무한대의 범위에 있군요.
 
@@ -148,16 +148,16 @@ $
 
 지수함수와 주기함수 사이의 연관관계는 무엇일까요? 그 관계를 찾은 것이 바로 오일러 공식입니다.
 
-$$
+$
 {e^{i\theta}} = \cos{\theta} + i\sin{\theta}
-$$
+$
 
 이 식을 위 식처럼 표현한다면 다음과 같습니다
 $$
 {\exp} \left( i\cdot 2\pi\frac{k}{T} t \right) = \cos\left({2\pi\frac{k}{T}}\right) + i\sin\left({2\pi\frac{k}{T}}\right)
 $$
 
-여기서 $$\cos{2\pi\frac{k}{T}}$, $i\sin{2\pi\frac{k}{T}}$$ 함수는 주기와 주파수를 가지는 주기함수입니다. 
+여기서 $$\cos{2\pi\frac{k}{T}}$$, $$i\sin{2\pi\frac{k}{T}}$$ 함수는 주기와 주파수를 가지는 주기함수입니다. 
 
 즉 퓨리에 변환은 입력 singal이 어떤것인지 상관없이 sin, cos과 같은 주기함수들의 합으로 항상 분해 가능하다는 것입니다. 
 
