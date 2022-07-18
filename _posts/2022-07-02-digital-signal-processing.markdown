@@ -42,9 +42,9 @@ Sample rate와 관련 된 법칙으로 Nyquist law가 있다. 모든 신호가 �
 
 샘플링 레이트가 최대 frequency의 2배 보다 커져야 한다는 것이다.
 
-$f_{s} > 2f_{m}\, 여기서 \,f_{s} 는\, sampling \,rate \,,\,f_{m} 은\, maximum\, frequency를 말한다.$  
+$$ f_{s} > 2f_{m}\, 여기서 \,f_{s} 는\, sampling \,rate \,,\,f_{m} 은\, maximum\, frequency를 말한다.$$  
 
-$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다.$
+$$ Nyqusit frequency = f_{s}/2, sampling rate의 절반이다.$$
 
 일반적으로 Sampling은 인간의 청각 영역에 맞게 형성 된다.
 - Audio CD : 44.1 kHz(44100 sample/second)  
