@@ -4,6 +4,6 @@ title: "ArcFace"
 date: 2022-07-02 12:00:00 -0500
 image: cv.jpg
 tags: [ai, cv]
-categories: [CV]
+categories: [cv]
 ---
 ING
