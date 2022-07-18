@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Digital signal processing
+title: "Digital signal processing"
 image: speech1.jpg #12.jpg
 date: 2022-07-02 19:59:18 -0500
 tags: [ai, sound-ai]
