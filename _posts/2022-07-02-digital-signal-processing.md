@@ -140,9 +140,9 @@ $$ y(t)=\sum_{k=-\infty}^\infty A_k \, \exp \left( i\cdot 2\pi\frac{k}{T} t \rig
 
 진폭에 대한 수식은 다음과 같습니다.
 
-$$
+$
 A_k = \frac{1}{T} \int_{-\frac{T}{2}}^\frac{T}{2} f(t) \, \exp \left( -i\cdot 2\pi \frac{k}{T} t \right) \, dt
-$$
+$
 
 여기서 하나의 의문점이 드실것 같습니다. 주기함수의 합으로 표현된다고 했는데 저희가 보고 있는것은 $$\exp \left( i\cdot 2\pi\frac{k}{T} t \right)$$ 지수함수의 형태이기 때문입니다.
 
