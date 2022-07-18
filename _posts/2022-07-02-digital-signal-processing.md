@@ -149,12 +149,12 @@ $$
 지수함수와 주기함수 사이의 연관관계는 무엇일까요? 그 관계를 찾은 것이 바로 오일러 공식입니다.
 
 $$
-e^{i\theta} = \cos{\theta} + i\sin{\theta}
+{e^{i\theta}} = \cos{\theta} + i\sin{\theta}
 $$
 
 이 식을 위 식처럼 표현한다면 다음과 같습니다
 $$
-\exp \left( i\cdot 2\pi\frac{k}{T} t \right) = \cos\left({2\pi\frac{k}{T}}\right) + i\sin\left({2\pi\frac{k}{T}}\right)
+{\exp} \left( i\cdot 2\pi\frac{k}{T} t \right) = \cos\left({2\pi\frac{k}{T}}\right) + i\sin\left({2\pi\frac{k}{T}}\right)
 $$
 
 여기서 $$\cos{2\pi\frac{k}{T}}$, $i\sin{2\pi\frac{k}{T}}$$ 함수는 주기와 주파수를 가지는 주기함수입니다. 
@@ -168,13 +168,13 @@ $$
 
 만약에 우리가 수집한 데이터 $$ y_{n} $$에서, 이산 시계열 데이터가 주기 $$ N $$으로 반복한다고 할때, DFT는 주파수와 진폭이 다른 $N$개의 사인 함수의 합으로 표현이 가능합니다.
 $$
-y_n = \frac{1}{N} \sum_{k=0}^{N-1} Y_k \cdot \exp \left( i\cdot 2\pi\frac{k}{N} n \right)
+{y_n} = \frac{1}{N} \sum_{k=0}^{N-1} Y_k \cdot \exp \left( i\cdot 2\pi\frac{k}{N} n \right)
 $$
 
 위 식을 보면 k의 range가 0부터 $N-1$로 변화했음을 알 수 있다. 이때 Spectrum $Y_{k}$를 원래의 시계열 데이터에 대한 퓨리에 변환값이라고 하죠.
 
 $$
-Y_k = \sum_{n=0}^{N-1} y_n\cdot \exp \left( -i\cdot 2\pi\frac{k}{N} n \right)
+{Y_k} = \sum_{n=0}^{N-1} y_n\cdot \exp \left( -i\cdot 2\pi\frac{k}{N} n \right)
 $$
 
 - $$ y_{n} $$ : input signal
