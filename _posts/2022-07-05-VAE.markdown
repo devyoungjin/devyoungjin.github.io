@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "VAE"
-image: 4.jpg #code1.jpg 
+image: speech1.jpg #code1.jpg 
 date: 2022-07-05 00:00:18 +0200
 tags: [ai, vae]
 categories: [sound-ai]
