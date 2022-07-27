@@ -3,7 +3,7 @@ layout: post
 title: "ArcFace"
 date: 2022-07-02 12:00:00 -0500
 image: cv.jpg
-tags: [ai, metriclearning,Arcface]
+tags: [ai, metriclearning, arcface]
 categories: [ai]
 ---
 
@@ -88,7 +88,6 @@ $$ D(f_\theta(X_a),f_\theta(X_p))+m < D(f_\theta(X_a),f_\theta(X_n) $$
 1. mining이 성능에 영향을 많이 줌 (세미나28분)
 2. 어떤 negative인지에 따라 성능/계산량 차이가 크게남
 3. 대규모 데이터 셋 (클래스 다량)을 학습 할 경우 이러한 triplet 쌍을 뽑을 수 있는 경 우가 기하 급수적으로 많아져 학습이 까다로움.
-
 
 ### ▷ Center loss(2016 ECCV)
 Triplet loss의 단점을 개선하기 위해 등장  
