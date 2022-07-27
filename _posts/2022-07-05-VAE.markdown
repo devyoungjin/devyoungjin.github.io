@@ -3,21 +3,23 @@ layout: post
 title: "VAE"
 image: speech1.jpg #code1.jpg 
 date: 2022-07-05 00:00:18 +0200
-tags: [ai, vae]
-categories: [sound-ai]
+tags: [ai, ae, vae]
+categories: [vae]
 ---
 
-# AUTOENCODER
-Auto Encoder란 입력 데이터를 압축시켜 압축시킨 데이터로 축소한 후, 다시 확장하여 결과 데이터를 입력 데이터와 동일하도록 만드는 일종의 딥 뉴럴 네트워크 모델이다.
-Auto Encoder는 입력 데이터를 일종의 Label로 삼아 학습하므로 Self-supervised Learning 이라고 부르기도 하지만, y값이 존재하지 않으며 이용하지 않는다는 점에서 Unsupervised Learning으로도 분류된다. 데이터를 압축시킴으로써 얻는 내재된(Latent) 정보를 얻기 위한 모델이다.
+# AutoEncode(AE) 정리
 
-<img src="/assets/images/VAE/vae1.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+Auto Encoder란 입력 데이터를 압축시켜 압축시킨 데이터로 축소한 후(Encoder), 다시 확장하여 결과 데이터를 입력 데이터와 동일하도록 만드는(decoder) 모델이다.
+Auto Encoder는 입력 데이터를 일종의 Label로 삼아 학습하므로 Self-supervised Learning 이라고 부르기도 하지만, y값이 존재하지 않으며 이용하지 않는다는 점에서 Unsupervised Learning으로도 분류된다. AutoEncoder의 주요 목적은 unlabeled training data로부터 lower-dimensional feature representation(Latent z) 정보를 얻기 위한 모델, 즉 Encoder에 목적이 있고, Encoder학습을 위해 Decoder를 붙인 것이다.
 
-위 그림은 손글씨 이미지 데이터인 숫자 1을 Auto Encoder 모델에 넣은 후 결과값으로 입력 데이터와 비슷한 손글씨 숫자 이미지 1을 출력하는 그림이다. 
-Auto Encoder에서 압축시키는 부분은 Encoder 라고 하며 확장시키는 부분은 Decoder라고 부른다. 
-참고로 Encoder 또는 Decoder 둘 중 하나의 파라미터를 고정시키고 나머지 부분만 학습시키는 경우도 있다. 둘 중 한 부분만을 이용하되 전체적인 Encoder - Decoder 구조는 유지해야 한다.
+AE는 많은 레이블링 되지 않은 데이터로부터 양질의 general feature representation을 학습 가능합니다  
+학습시킨 feature representation을 데이터가 부족한 supervised learning 모델의 초기화 값으로 사용합니다  
+AE는 입력값을 복원하는 과정에서 특징(Feature Representation)을 잘 학습하며 학습된 특징은 supervised learning 모델의 초기화에 사용할 수 있습니다.  
+즉 latent vector z가 학습 데이터의 variational을 잘 가지고 있습니다  
+특히 소량의 데이터로 학습을 해야 하는 경우 feature representation은 더 좋은 특징을 초기화할 수 있도록 도와줍니다.
 
-## Demension Reduction
+
+### Demension Reduction
 Auto Encoder의 Encoder 부분은 입력 데이터를 압축하는 과정에서 데이터의 차원을 축소시킨다. 
 차원의 축소 관점에서 Encoder 부분은 주성분 분석인 PCA(Principal Component Analysis)와 유사한 점이 있다.
 차원의 축소는 결국 특징을 뽑아낸다는 것을 의미하는데, 다음 그림을 살펴보자. 참고로 PCA에 대해 모른다면 여기를 참고하자.
@@ -28,7 +30,7 @@ Auto Encoder의 Encoder 부분은 입력 데이터를 압축하는 과정에서 
 반면에 초록색 실선인 Auto Encoder의 Encoder는 비선형적으로 데이터의 차원을 줄여줄 수 있다. 
 참고로 PCA는 Kernel PCA를 활용해 비선형적으로 데이터를 축소할 수 있긴 하지만 보통 선형적으로 데이터 차원을 축소하고 비선형적으로 데이터를 축소하기 위해서는 Auto Encoder를 사용한다.
  
-## Structure
+### Structure
  <img src="/assets/images/VAE/vae3.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
 
 Encoder와 Decoder 부분이 대칭적인 구조를 보인다.
@@ -39,7 +41,10 @@ Input layer의 입력 데이터를 압축시켜서 대표적인 특성을 추출
  <img src="/assets/images/VAE/vae4.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
 
 
-### PROBLEMS WITH Vanilla Auto Encoder FOR GENERATION 
+
+### PROBLEMS WITH Auto Encoder FOR GENERATION 
+
+ AE가 만들어낸 잠재 공간은 군집이 비교적 넓게 퍼져있고, 중심으로 잘 뭉쳐있지 않지만, VAE가 만들어낸 잠재 공간은 중심으로 더 잘 뭉쳐져 있는 것을 확인 할 수 있다. 따라서 원본 데이터를 재생하는데 AE에 비해서 VAE가 더 좋은 성능을 보인다는 것을 알 수 있다. 즉 VAE를 통해서 데이터의 특징을 파악하는게 더 유리하다. 
 
 1. THE PLOT ISN`T SYMMETRICAL AROUND THE ORIGIN
 플롯이 원점을 중심으로 균형적이지 않음  => 생성을 위한 포인트 샘플링을 어떻게 해야 할까?
@@ -50,8 +55,266 @@ Input layer의 입력 데이터를 압축시켜서 대표적인 특성을 추출
 3. THERE ARE GAPS BETWEEN COLOURED POINTS
 색칠된 지점 사이에 간격이 있음 => 일부 생성된 이미지가 좋지 않음
 
+---
 
-## VARIATIONAL AUTOENCODERS
+# Variational AutoEncoder(VAE) 정리
 
-1. VAE는 확률적 오토인코더(probabilistic autoencoder)다. 즉, 학습이 끝난 후에도 출력이 부분적으로 우연에 의해 결정된다.
-2. VAE는 생성 오토인코더(generatie autoencoder)이며, 학습 데이터셋에서 샘플링된 것과 같은 새로운 샘플을 생성할 수 있다.
+AE와 반대로 VAE의 목적은 Decoder에 있다. Decoder 학습을 위해 Encoder를 붙인 것이다.
+VAE는 기존의 AE와 엄연히 목적이 다르지만 구조가 상당히 비슷해서 Variational AE라는 명칭으로 불린다.
+
+VAE는 z라는 latent variable을 사용하여 새로운 x를 생성한다.  
+우리가 VAE를 통해 얻고자 하는 것은 'true parameter θ'값 이다.
+이 모델을 표현하기 위해 우리는 p(z)를 *가우시안으로 가정하며, conditional, p(x|z)을 구하기 위해 Neural Net을 정의한다. 
+모델을 train 하기 위해서는 *FVBN(Fully Visible Brief Network)을 사용하며,우리는 트레이닝 데이터의 *Likelihood를 최대화하는 모델의 parameter를 구해야한다.
+
+### Data likelihood  
+먼저 robability density function(확률 밀도 함수)를 정의한다.
+
+$$ P_{\theta}(x) = \int P_{\theta}(z)P_{\theta}(x|z)dz $$  
+- $\theta: nn$에 있는 파라미터들의 집합
+- $P_{\theta}(x)$: parameter $ \theta $가 정해졌을 때, x라는 데이터가 나올 확률이고 이 확률을 최대화 하는 것이 Generative model의 목표이다. 
+- $P_{\theta}(z) $: latent vector z를 sampling할 수 있는 확률밀도 함수
+- $P_{\theta}(x|z) $: z가 주어졌을 때, 어떤x가 나올지 조건부 확률에 대한 확률밀도 함수
+- 두개의 독립사건의 확률은 두 사건의 곱으로 표현할 수 있으므로, 위 식은 성립한다.  (정규분포는 사건이 서로 독립이어야 한다는 전제 조건이 있다??)
+
+하지만 위의 수식은 가능한 모든 z에 대해 integral(적분)을 하기 때문에 intractable(다루기어려움)하다.  
+직접적으로 미분할 수 없기 때문에, 이 문제를 *MLE로 풀기 위해서는 미분 가능한 형태로 만들어줘야 한다.
+
+### posterior density also intractable  
+$$ P_{\theta}(z|x) =  \frac {P_{\theta}(x|z) P_{\theta}(z)}{P_{\theta}(x)} $$  
+대부분의 z에 대해 $p_θ(x|z)$는 거의 0의 값을 가질 것이기 때문에, sampling이 상당히 많이 필요하다.  
+efficient 하게 sampling을 진행하기 위해 data에 dependent 한 z를 sampling 할 필요가 있다.  
+
+따라서 $ p_θ(z|x) $ 같은 식을 생각해 낸다.  
+
+$p_θ(z|x)$가 하는 역할은 x가 주어졌을 때 이 x를 생성해 낼 것 같은 z에 대한 확률 분포를 만들어 내는 것이다.  
+위와 같이 Baye's Rule을 적용해 쓸 수 있수 있다.  
+하지만 앞서 $p_θ(x)$가 intractable 하기 때문에 $p_θ(z|x)$ 또한 intractable 하다.
+ 
+
+## 그렇다면 문제를 어떻게 해결할 수 있을까?
+
+Decoder network 모델링을 위해 추가적인 Encoder Network를 정의해준다.
+
+$p_θ(z|x)$를 근사하는 $q_ϕ(z|x)$를 구성한다  
+ϕ라는 새로운 parameter로 표현되는 $q_ϕ(z|x)$는 일종의 Encoder라고 볼 수 있다  
+하지만 원래의 posterior를 approximate 했기 때문에 error가 존재하게 된다  
+따라서 원래의 objective function에 대한 *lower bound를 정의해 줘야 한다  
+
+결국 VAE에서 하고 싶은 것은 데이터의 확률론적 생성(probabilistic generation) 모델을 만들고 싶은 것입니다  
+VAE 네트워크 구조를 통해 알아보도록 하겠습니다
+
+ <img src="/images/vae/vae0.jpg" width="90%" height="90%" title="제목" alt="VAE"/>     
+
+*Mean and (diagonal)covariance of z|x and x|z  
+
+Encoder는 $q_ϕ(z|x)$이며 x를 input으로 받아서, z space상에서 gaussian이라고 가정한 확률분포를 만든다.(parameter ϕ)     
+이 data dependent 한 gaussian 분포로부터 z를 sampling 한다.  
+sampling 된 z를 가지고 decoder $p_θ(x|z)$는 x의 space 상의 gaussian distribution 혹은 Bernoulli distribution을 output으로 내놓게 되고 (parameter θ), x를 이 분포로부터 sampling 할 수 있게 된다.   
+이러한 구조를 가지기 때문에 latent variable z라는 data의 의미 있는 representation을 얻을 수 있게 된다.
+
+## Derive likelihood
+
+지금부터는 VAE의 Likelihood 유도에 대해 살펴보도록 하겠습니다  
+ <img src="/images/vae/vae3.jpg" width="90%" height="90%" title="제목" alt="VAE"/>   
+ <img src="/images/vae/vae2.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+
+우리가 원하는 것은 $logp_θ(x)$ 를 최대화 시키는 것이다.  
+유도 공식을 line by line으로 해석해 보면,  
+1. line1: 우선 log likelihood를 $q_ϕ(z|x)$로부터 sampling한 latent vector z에 대한 expectation식으로 바꿔줄 수 있다.  
+2. line 2: *Baye's rule 적용한다.  
+3. line 3: 분모 분자에 $q_ϕ(z|x)$을 곱한다.  
+4. line 4: log 수식을 정리하면 다음과 같은 식으로 정리할 수 있고,  
+5. line 5: 수식은 다음 3개의 term으로 정리 된다.   
+
+
+### Decoder Network Term(첫 번째 term):
+- [reconstruction]: original input being reconstructed  
+- $q_ϕ(z|x)$로부터 sampling한 z를 가지고 $p_θ(x^i|z)$가 $x^i$를 생성한 log likelihood
+
+### *KL term
+- prior z(p(z))와 *posterior $q_ϕ(z|x)$사이의 *KL-divergence  
+- 즉 근사된 posterior의 분포가 얼마나 normal distribution과 가까운지에 대한 척도다 (단 이때 prior를 normal distribution으로 가정)
+
+
+### KL term(마지막 KL term)
+
+- $p_θ(z|x^i)$는 intractable하기 때문에 값을 계산하기 어렵다 (Intractible: Baye's rule을 적용한 수식(p(z|x))이 계산이 되지 않는 것을 확인) 
+- 하지만 KL의 성질(특성)에 의해 세번째 항(마지막 KL term)은 무조건 0보다 크거나 같다
+  따라서 {첫 번째 term과 두 번째 term을} 하나로 묶어주면, 원래의 objective function에 대한 tractable한 lower bound를 정할 수 있다.
+
+- MLE 문제를 풀기 위해서는 objective function을 미분해서 gradient ascent를 할 것이며, Lower bound가 정의된다면 이 lower bound를 최대화하는 문제로 바꿔 gradient를 구할 수 있게 된다.
+
+### 좀 더 쉽게설명해보겠습니다
+결국 학습을 위해서는 미분을 하고 gradient(기울기)값을 구해야 하는데 intractable한 $p_θ(x)$를 tractable하게 유도하여 lower bound 문제로 정의해 주는 것이다.
+lower bound인 이유는 첫 번째 term과 두 번째 term의 값의 합 이상으로 MLE를 구해야 하기 때문입니다. (마지막 term은 0이상이니깐!)
+
+
+ <img src="/images/vae/vae5.jpg" width="90%" height="90%" title="제목" al="VAE"/> 
+
+VAE를 통해 Latent Vector z를 학습하면 Data Generating이 가능해진다
+위의 사진처럼 z1과 v2의 값을 조정하여 다양한 값들을 생성해 낼 수 있게 된다.
+데이터의 특징을 잘 담은 feature를 조절하여 데이터를 생성하는 것이다.
+위의 사진에서는 z1을 통해 웃는 정도를 조정하며 z2를 통해 얼굴 포즈를 조절하는 것을 볼 수 있다.
+
+ <img src="/images/vae/vae6.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+
+
+
+--------------------
+
+
+
+
+-----
+Reference: https://wikidocs.net/152474
+
+## VAE(VARIATIONAL AUTOENCODERS)
+
+VAE는 Input image X를 잘 설명하는 feature를 추출하여 Latent vector z에 담고, 이 z를 통해 X와 유사하지만 완전히 새로운 데이터를 생성하는 것을 목표로 한다.  
+이때 각 feature가 가우시안 분포를 따른다고 가정하고 z는각 feature의 평균과 분산값을 나타낸다.
+
+VAE는 input image가 들어오면 그 이미지에서의 다양한 특징들이 각각의 확률 변수가 되는 어떤 확률 분포를 만들게 된다. 이런 확률 분포를 잘 찾아내고, 확률값이 높은 부분을 이용하면 실제에 있을법한 이미지를 새롭게 만들 수 있다.
+
+
+
+$z \rightarrow x$ 이고 다음으로 대응된다. $P_{\theta^*}(z) \rightarrow P_{\theta^*}(x|z^{(i)}) $
+- p(z): latent vector z의 확률밀도함수이고, 가우시안 분포를 따른다고 가정
+- p(x|z): 주어진 z에서 특정 x가 나올 조건부 확률에 대한 확률밀도 함수
+- $\theta$: 모델의 파라미터
+- $P_{\theta^*}(z) $:z latent variable의 확률 분포
+- $P_{\theta^*}(x|z^{(i)}) $: z가 given일 때 x의 확률 분포
+
+
+
+```
+REFERENCE
+Idea Factor KAIST | AutoEncoder and Variational AutoEncoder
+Sound-AI Valerio Velardo | VAE
+CS231 | VAE
+https://deepinsight.tistory.com/121
+```
+
+
+
+
+
+----
+# Concept
+-----
+
+### u-law 
+
+### Bayesian probability
+세상에 반복할 수 없는 혹은 알 수 없는 $\prod_{i=1}^N x_i$
+확률들, 즉 일어나지 않은 일에 대한 확률을 사건과 관련이 있는 여러 확률들을 이용해 우리가 알고싶은 사건을 추정하는 것이 베이지안 확률이다.
+
+$p(A|B) = \frac {p(B|A)p(A)}{p(B)}$  
+- P(A), 사전확률(prior probability): 결과가 나타나기 전에 결정되어 있는 A(원인)의 확률
+- p(B|A), 우도확률(likelihood probability): A(원인)가 발생하였다는 조건하에 B(결과)가 발생활 확률
+- p(A|B), 사후확률(posterior probability): B(결과)가 발생하였다는 조건하이 A(원인)가 발생하였을 확률
+<!--reference: https://bioinformaticsandme.tistory.com/47 -->
+
+### PDF (Probability Density Function)
+:특정 구간에 속할 확률(확률 밀도 함수) 
+표준 정규분포의 PDF = $\frac{1}{\sqrt{2π}}e^\frac{−z^2}{2}$ 로 표현되고,
+연속 사건의 경우 특정 사건이 일어날 확률은 모두 0이며, 어떤 구간에 속할 확률은 PDF를 이용해서 구할 수 있다.
+
+### Likelihood(가능도)
+특정 사건이 일어날 가능성을 비교할 수 있는 방법
+가능도의 직관적인 정의 : 확률분포함수의 y값
+셀 수 있는 사건: 가능도 = 확률
+연속 사건: 가능도 ≠ 확률, 가능도 = PDF값
+
+### Gaussian distribution (정규 분포)
+<!--reference: https://rpubs.com/Statdoc/204928 -->
+ $f(x)= \frac{1}{ \sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+
+= $ N(\mu,\sigma^2) $ = $\int_{ -∞}^{∞} N(\mu,\sigma^2)dx = 1 $  
+
+PDF(Probability Density Function): 확률밀도함수 이고, σ가 커질수록 더 넓어지고요, σ가 작을 수록 좁아집니다. 그리고 μ값에 따라서도 좌우로 움직이겠네요. 
+
+자, 이제 적분을 통해서 원하는 구간 a,b에 대해서 원하는 확률을 구하기 위해 적분하면 원하는 확률이 나오겠군요. 
+
+그러면 적분을 해볼까요? $\int_{a}^{b}\frac{1}{ \sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx$
+
+적분이 너무 어려우니까, 적분 결과를 테이블로 만들어 놓았는데, 케이스 마다 μ와 σ가 다를테니까 이걸 μ=0와 σ=1의 경우로 Normalization(정규화) 해서 테이블을 만들어 두었죠. 그런것을 "표준"정규분포라고 부르고요. 이런 정규화 변수를 Z라고 부르고 $Z = \frac {X-\mu}{\sigma}$ 로 정규화하면, μ = 0, σ = 1인 정규 분포를 얻을 수 있습니다
+
+
+### FVBN(Fully Visible Brief Network)
+최대우도법이나 커널 밀도 추정의 문제는 다차원에서 복잡한 분포를 추정하기에는 잘 맞지 않는다는 것이다. 특히 연속 변수와 이산 변수가 섞여 있을 경우 이를 나타내는 확률 분포를 만들기가 어렵다. 이럴 때는 확률 분포를 여러 개로 쪼개면 문제를 좀 더 간단하게 만들 수 있다.
+Chain rule를 활용한 모형  
+** chain rule: $$ P(X_1,X_2) = P(X_1|X_2)P(X_2) $$
+    $$ P(X_1,X_2,X_3) = P(X_1|X_2,X_3)P(X_2,X_3) = P(X_1|X2,X_3)P(X_2,|X_3)P(X_3)$$
+    
+
+$p(x) = \prod_{i=1}^n p(x_i|x_1,...,x_{i-1})$
+- $p(x)$: Likelihood of image x
+- $p(x_i|x_1,...,x_{i-1})$: Probability of i`th pixel value given all previous pixels
+
+1. Explicit density model  
+2. 1-d 차원의 이미지 x의 likelihood를 decompose하기 위해 chain rule 사용
+3. 그 후, training data의 likelihood를 최대화
+4. n-dim vector의 확률을 n개의 확률곱으로 나타냄. WaveNet
+5. 샘플 요소들을 하나하나 차례로 생성해야하기 때문에 매우 느림
+6. pixel value들의 복잡한 분포 => Neural Network를 사용해 표현!
+7. previous pixels의 순서를 정의해야 함
+
+
+
+
+### KL-divergence  (=relative entropy)
+<!-- https://hyunw.kim/blog/2017/10/27/KL_divergence.html -->
+KLD는 2개의 확률분포가 어느 정도 닮았는지를(다름정도) 나타내는 척도이다. 정의는 아래와 같다.   
+$$ KL(p||q) = \int_{-\infty}^{\infty}p(x) ln  \frac{p(x)}{q(x)}dx $$ 
+$$ == \int_{-\infty}^{\infty}p(x)logp(x)dx - \int_{-\infty}^{\infty}p(x)logq(x)dx $$ 
+
+KLD의 중요한 특징은 2가지 있다.
+1. 같은 확률 분포에서는 0이 된다
+2. 항상 0을 포함한 정의 값이 되고, 확률분포가 닮지 않을 수록 큰 값이 된다. KL(p|q) >= 0.
+
+
+### ELBO(Evidence Lower Bound) 
+<!--https://seongukzz.tistory.com/3-->
+Lower bound: lower bound는 찾고자 하는 값 이상이 처음 나타나는 위치.
+
+종종 VAE에서는 marginal likelihood function을 latent variable인 z로 나타낸다고 하는 얘기가 나오는데, 여기서 marginal likelihood function이 어떤 의미인지 모르겠어서 찾아보다가 이해에 도움이 되는 글을 찾았다.
+https://m.blog.naver.com/sw4r/221380395720
+정리하자면, 베이즈 이론에서 Evidence에 해당되는 x에 대한 확률을 의미한다고 볼 수 있다
+
+
+우리는 VAE에서 사후 확률 분포(posterior distribution)인 
+$P_{\theta}(z|x)$를 알고 싶은데 이를 직접 구하는 것은 어려우므로 이에 근사할 수 있는 사후 확률 분포(variational approximation of the posterior distribution)인,$q_ϕ(z|x)$ 를 찾는 변분 추론을 해야 한다.
+
+우리의 최종 목적은 $q_ϕ(z|x)$와 $P_{\theta}(z|x)$ 분포의 차이를 줄이는 것임을 명심해야 하며, 이는 두 확률 분포의 KL Divergence인 $D_{KL}(q_ϕ(z|x)||P_{\theta}(z|x))$가 작아져야 됨을 뜻한다.  
+ <img src="/images/vae/ELBO0.jpg" width="90%" height="90%" title="제목" alt="VAE"/> 
+
+우리의 최종 목적을 달성하려면 뒤에 있는 항이 줄어들어야 하는 것이고, 이는 앞에 있는 ELBO(Evidence Lower Bound)를 증가시키면 된다.
+사족이지만 처음에는 ELBO에서 왜 Evidence가 앞에 붙는지 이해를 못 했는데, marginal likelihood function이 결국 Evidence와 연관이 있다는 사실을 뒤늦게 깨달았다.  
+결국 ELBO는 두 개의 항으로 유도가 가능한데, 이는 Reconstruction Term과 Prior Fitting Term이다.  
+Reconstruction term은 encoder를 통해서 input을 latent space로 보내고 다시 decoder로 돌아오는 reconstruction loss을 줄이는 역할을 한다.  
+Latent space는 input 대상을 잘 설명할 수 있는 공간이며, input의 feature 중 일부는 다른 feature의 조합으로 표현 가능해서 불필요할 수 있으므로 latent space는 일반적으로 실제 space보다 작다.  
+Prior fitting term은 input을 latent space로 올렸을 때 이루는 latent distribution이자 앞에서 정한 근사 사후 확률 분포(variational approximation of the posterior distribution)를 prior distribution과 유사하도록 강화해주는 것이며, KL Divergence를 활용한다.
+
+---
+reference:https://www.youtube.com/watch?v=XepXtl9YKwc / https://ebbnflow.tistory.com/330
+
+### MLE(Maximum Likelihood Extimation,최대우도법) VS MAP
+가능성과 확률에 대한 직관을 수리적으로 표현한 것(오로지 결과 기반)
+최대우도법은 단어 그대로 '우도(likelihood, 가능도)'를 '최대화'하는 지점을 찾는 것을 의미합니다
+
+데이터의 밀도를 추정하는 한 방법으로 파라미터로 구성된 어떤 확률 밀도 함수 $(x|\theta)$에서 관측된 표본 데이터 집합이 있고, 이 표본에서 파라미터$(\theta)$를 추정하는 방법이다.
+
+
+표본 데이터(sample)를 모두 평균 값으로 지정해 likelihood 값을 계산하고 likelihood가 가장 큰 지점을 찾는다. 이렇게 찾게된 지점은 데이터와 제일 잘 맞는 모델과 추정치를 계산할 수 있게 된다.
+모델 파라미터를 관측 값에만 의존하여 예측하는 방법으로 주어진 파라미터를 기반으로 likelihood를 최대화 한다.
+
+* likelihood function: $P(x|\theta) = \prod_{k=1}^{n}P({x_k}|\theta) $
+likelihood function의 최대값을 찾는 방법을 MLE라고 한다. 계산의 편의를 위해 log-likelihood function의 최대값을 찾으며 최대값을 찾을 때 '미분계수'를 이용한다. 셰타에 대해 편미분하고 그 값이 0이 되도록하는 셰타를 찾는 과정을 통해 L(셰타|x)를 최대화 하는 셰타를 찾으면 된다. 
+* log-likelihood function: $L(\theta|x)=logP(x|\theta) =\sum_{i=1}^{n}logP({x_i}|\theta) $
+
+---
+
+
